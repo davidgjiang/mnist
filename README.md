@@ -7,5 +7,5 @@ The training set has 60,000 images and the test set has 10,000 separate images.
 
 This repository includes:
 * a custom module `mnist_tools.py`, which defines the LeNet5 convolutional neural network, the train function, and the test function
-* a jupyter notebook `mnist.ipnb`, which performs training, validation, and testing of the dataset
+* a jupyter notebook `mnist.ipynb`, which performs training, validation, and testing of the dataset
 * a python script `main.py` which *also* performs training, validation, and testing of the dataset, **with the added bonus of user input and an option to save the fully trained model**
