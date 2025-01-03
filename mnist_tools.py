@@ -27,6 +27,31 @@ class LeNet(nn.Module):
         x = F.sigmoid(x)
         x = self.fc3(x)                                 # [84] -> [10]
         return x
+    
+class CustomNet(nn.Module):
+    def __init__(self):
+        super().__init__() 
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=16, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, padding=1)
+
+        self.fc1 = nn.Linear(in_features=32*6*6, out_features=400)
+        self.fc2 = nn.Linear(in_features=400, out_features=100)
+        self.fc3 = nn.Linear(in_features=100, out_features=10)
+
+    def forward(self, x):
+        x = self.conv1(x)                               # [1,28,28] -> [16,28,28] 
+        x = F.sigmoid(x)                                
+        x = F.avg_pool2d(x, kernel_size=3, stride=2)    # [16,28,28] -> [16,13,13]
+        x = self.conv2(x)                               # [16,13,13] -> [32,13,13]
+        x = F.sigmoid(x)
+        x = F.avg_pool2d(x, kernel_size=3, stride=2)    # [32,13,13] -> [32,6,6]
+        x = torch.flatten(x, start_dim=1)               # [32,6,6] -> [1152]
+        x = self.fc1(x)                                 # [1152] -> [400]
+        x = F.sigmoid(x)
+        x = self.fc2(x)                                 # [400] -> [100]                                 
+        x = F.sigmoid(x)
+        x = self.fc3(x)                                 # [100] -> [10]                                 
+        return x
 
 def train(model, train_loader, val_loader, criterion, optimizer, device):
     running_loss_train = 0.0

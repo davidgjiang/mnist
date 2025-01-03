@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader, random_split
 from mnist_tools import *
 
 def main():
-    print('MNIST Training')
+    print('MNIST Training using LeNet5')
 
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
@@ -51,7 +51,7 @@ def main():
     avg_train_losses = []
     avg_val_losses = []
 
-    print('Initialising training...')
+    print('Initializing training...')
     for epoch in range(epochs):
         print(f'Epoch {epoch+1}/{epochs}')
         avg_tloss, avg_vloss = train(model, train_loader, val_loader, criterion, optimizer, device)
@@ -64,8 +64,8 @@ def main():
 
     save = input('Do you want to save the model? (y/n): ')
     if save == 'y':
-        torch.save(model.state_dict(), 'mnist_model.pth')
-        print('Model saved as mnist_model.pth')
+        torch.save(model.state_dict(), 'mnist_lenet_model.pth')
+        print('Model saved as mnist_lenet_model.pth')
 
 if __name__ == '__main__':
     main()
